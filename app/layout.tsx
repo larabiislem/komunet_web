@@ -35,7 +35,7 @@ export default function RootLayout({
            <div className="absolute top-0 right-0 ">
           <img src={logo.src} alt="Logo" className="h-10 w-auto" />
         </div>
- 
+        {/* SearchBar centrée et compacte */}
         <div className="flex justify-center mt-8 ">
           <SearchBar />
         </div>
@@ -43,7 +43,8 @@ export default function RootLayout({
         </div>
 
        
-
+        <Sidebar />
+ 
         {children}
       </body>
     </html>
