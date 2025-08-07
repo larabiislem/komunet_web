@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Sidebar from "@/composents/sidebar";
+import SearchBar from "@/composents/searchbar";
+import logo from "../assets/logo.png"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +27,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+     <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ backgroundColor: "#FEF7F2" }}
       >
+        {/* Logo en haut à droite, sans padding */}
+        <div className="absolute top-0 right-0 ">
+         <img src={logo.src} alt="Logo" className="h-10 w-auto" />
+        </div>
+        {/* SearchBar centrée et compacte */}
+        <div className="flex justify-center mt-8">
+          <SearchBar />
+        </div>
+        <Sidebar />
+        {/* Main content area */}
         {children}
       </body>
     </html>
