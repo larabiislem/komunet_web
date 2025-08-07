@@ -1,7 +1,14 @@
+'use client';
+import { Provider } from 'react-redux';
+import postStore from '../../store';
+import FavoritesList from '@/composents/favorites';
+
 export default function LoginPage() {
   return (
-    <div className="flex  justify-center h-screen">
-      <h1 className="text-2xl font-bold text-black">favorits</h1>
-    </div>
+     <Provider store={postStore}>
+  <FavoritesList/>
+
+     </Provider>
+  
   );
 }
