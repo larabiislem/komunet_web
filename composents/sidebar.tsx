@@ -2,41 +2,42 @@
 
 import * as React from "react"
 import { Home, Bell, Users, Calendar, Heart, User, Briefcase } from 'lucide-react'
+import Link from "next/link"
 
 const menuItems = [
   {
     title: "Home",
-    url: "#",
+    url: "/home",
     icon: Home,
   },
   {
     title: "Notifications",
-    url: "#",
+    url: "/notifications",
     icon: Bell,
   },
   {
     title: "Groupes",
-    url: "#",
+    url: "/groupes",
     icon: Users,
   },
   {
     title: "Événements",
-    url: "#",
+    url: "/events",
     icon: Calendar,
   },
   {
     title: "Mes Favoris",
-    url: "#",
+    url: "/favorites",
     icon: Heart,
   },
   {
     title: "Profile",
-    url: "#",
+    url: "/profile",
     icon: User,
   },
   {
     title: "Services/Offres",
-    url: "#",
+    url: "/services_offres",
     icon: Briefcase,
   },
 ]
@@ -66,27 +67,24 @@ export default function Sidebar() {
                   const Icon = item.icon
                   const isActive = activeItem === item.title
                   return (
-                    <li key={item.title}>
-                      <a
-                        href={item.url}
-                        onClick={(e) => {
-                          e.preventDefault()
-                          setActiveItem(item.title)
-                        }}
-                        className={`
-                          flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200
-                          ${isActive 
-                            ? 'bg-gray-200 text-black ' 
-                            : 'text-black hover:bg-gray-50 hover:text-black'
-                          }
-                        `}
-                      >
-                        <Icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-gray-600'}`}
-                        fill={isActive ? 'black' : 'none'}
-                        />
-                        <span>{item.title}</span>
-                      </a>
-                    </li>
+                   <li key={item.title}>
+                  <Link
+                    href={item.url}
+                    onClick={() => setActiveItem(item.title)}
+                    className={`
+                      flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200
+                      ${isActive 
+                        ? 'bg-gray-200 text-black ' 
+                        : 'text-black hover:bg-gray-50 hover:text-black'
+                      }
+                    `}
+                  >
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-gray-600'}`}
+                      fill={isActive ? 'black' : 'none'}
+                    />
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
                   )
                 })}
               </ul>
