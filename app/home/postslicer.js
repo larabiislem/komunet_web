@@ -9,13 +9,13 @@ export const postSlice = createSlice({
   },
   reducers: {
     getPosts: state => {
-     state.value = postdata.posts
+     state.value = postdata
       
     }
   }
 })
 
 
-export const { getPosts } = counterSlice.actions
+export const { getPosts } = postSlice.actions
 
-export default counterSlice.reducer
+export default postSlice.reducer
