@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from '../app/home/postslicer';
-import { UserCircle, Heart, MessageCircle, Share2, Eye, Image as ImageIcon } from "lucide-react";
+import { UserCircle, Heart, MessageCircle, Share2, Eye, Image as ImageIcon, Bookmark } from "lucide-react";
 
 interface RegularPost {
   id: number;
@@ -56,13 +56,20 @@ export default function RegularPosts() {
             {post.isPinned && (
               <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">Épinglé</span>
             )}
+            {/* Bouton enregistrer sur favoris */}
+            <button
+              className="ml-auto p-2 rounded-full hover:bg-gray-100 transition"
+              title="Enregistrer dans les favoris"
+            >
+              <Bookmark className="w-5 h-5 text-gray-500" />
+            </button>
           </div>
+            <div className="text-gray-800 text-base">{post.content}</div>
           {/* Icône image de post, plus grande */}
-        
-          <div className="text-gray-800 text-base">{post.content}</div>
-            <div className="flex items-center justify-center mb-4">
+          <div className="flex items-center justify-center mb-4">
             <ImageIcon className="w-72 h-56 text-gray-200" />
           </div>
+        
           <div className="flex items-center gap-6 mt-2 text-gray-500">
             <div className="flex items-center gap-1">
               <Heart className="w-5 h-5" />
