@@ -61,7 +61,7 @@
     "sharesCount": 42,
     "viewCount": 2979,
     "author": "Yasmine.D",
-    "postType": "annonce"
+    "postType": "régulier"
   },
   {
     "id": 5,
@@ -93,7 +93,7 @@
     "sharesCount": 56,
     "viewCount": 2320,
     "author": "EventTeam",
-    "postType": "annonce"
+    "postType": "régulier"
   },
   {
     "id": 7,
@@ -141,7 +141,7 @@
     "sharesCount": 3,
     "viewCount": 2586,
     "author": "Admin",
-    "postType": "annonce"
+    "postType": "régulier"
   },
   {
     "id": 10,
@@ -189,7 +189,7 @@
     "sharesCount": 20,
     "viewCount": 1800,
     "author": "EventTeam",
-    "postType": "annonce"
+    "postType": "régulier"
   },
   {
     "id": 13,
@@ -237,7 +237,7 @@
     "sharesCount": 35,
     "viewCount": 3500,
     "author": "MarketingTeam",
-    "postType": "annonce"
+    "postType": "régulier"
   },
   {
     "id": 16,

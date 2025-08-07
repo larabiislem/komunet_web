@@ -27,20 +27,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     <body
+      <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{ backgroundColor: "#FEF7F2" }}
       >
-        {/* Logo en haut à droite, sans padding */}
-        <div className="absolute top-0 right-0 ">
-         <img src={logo.src} alt="Logo" className="h-10 w-auto" />
+        <div className="sticky top-0 z-40 bg-[#FEF7F2]">
+           <div className="absolute top-0 right-0 ">
+          <img src={logo.src} alt="Logo" className="h-10 w-auto" />
         </div>
-        {/* SearchBar centrée et compacte */}
-        <div className="flex justify-center mt-8">
+ 
+        <div className="flex justify-center mt-8 ">
           <SearchBar />
         </div>
-        <Sidebar />
-        {/* Main content area */}
+
+        </div>
+
+       
+
         {children}
       </body>
     </html>
