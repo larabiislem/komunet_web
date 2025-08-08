@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/composents/sidebar";
 import SearchBar from "@/composents/searchbar";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
+import ProviderWrapper from "../composents/ProviderWrapper"; // adjust path as needed
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,21 +32,19 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{ backgroundColor: "#FEF7F2" }}
       >
-        <div className="sticky top-0 z-40 bg-[#FEF7F2]">
-           <div className="absolute top-0 right-0 ">
-          <img src={logo.src} alt="Logo" className="h-10 w-auto" />
-        </div>
-        {/* SearchBar centrée et compacte */}
-        <div className="flex justify-center mt-8 ">
-          <SearchBar />
-        </div>
+        <ProviderWrapper>
+          <div className="sticky top-0 z-40 bg-[#FEF7F2]">
+            <div className="absolute top-0 right-0 ">
+              <img src={logo.src} alt="Logo" className="h-10 w-auto" />
+            </div>
+            <div className="flex justify-center mt-8 ">
+              <SearchBar />
+            </div>
+          </div>
 
-        </div>
-
-       
-        <Sidebar />
- 
-        {children}
+          <Sidebar />
+          {children}
+        </ProviderWrapper>
       </body>
     </html>
   );
