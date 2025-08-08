@@ -24,3 +24,60 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* ...existing code... */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Container */
+  .dp-red.react-datepicker {
+    @apply border-0 rounded-xl shadow-xl overflow-hidden bg-white;
+  }
+
+  /* Header */
+  .dp-red .react-datepicker__header {
+    @apply bg-white border-b border-gray-200;
+  }
+
+  .dp-red .react-datepicker__current-month,
+  .dp-red .react-datepicker-time__header,
+  .dp-red .react-datepicker-year-header {
+    @apply text-gray-900 font-semibold;
+  }
+
+  /* Days */
+  .dp-red .react-datepicker__day-name,
+  .dp-red .react-datepicker__day {
+    @apply w-9 leading-9 m-0.5 rounded-lg text-gray-900;
+  }
+
+  .dp-red .react-datepicker__day:hover {
+    @apply bg-red-100 text-red-900;
+  }
+
+  .dp-red .react-datepicker__day--selected,
+  .dp-red .react-datepicker__day--in-selecting-range,
+  .dp-red .react-datepicker__day--in-range,
+  .dp-red .react-datepicker__day--range-start,
+  .dp-red .react-datepicker__day--range-end {
+    @apply bg-red-500 text-white;
+  }
+
+  .dp-red .react-datepicker__day--keyboard-selected {
+    @apply bg-red-300 text-red-900;
+  }
+
+  .dp-red .react-datepicker__day--today {
+    @apply outline outline-2 outline-red-500 outline-offset-2;
+  }
+}
+
+/* Pseudo-elements and non-utility props */
+.dp-red .react-datepicker__navigation-icon::before {
+  border-color: #ef4444; /* red-500 */
+}
+.dp-red .react-datepicker__triangle {
+  display: none;
+}
