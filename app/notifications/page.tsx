@@ -18,7 +18,7 @@ const notificationOptions = [
 export default function NotificationPreferencesPage() {
   const { register, handleSubmit, formState: { isSubmitting } } = useForm();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: unknown) => {
     console.log("Preferences saved:", data);
   };
 
