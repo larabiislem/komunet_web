@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getevents } from "../app/events/eventslicer";
+import Link from "next/link";
 
 type EventItem = {
   id: number;
@@ -41,7 +42,14 @@ export default function EventsList() {
     <div className="flex flex-col items-center w-full">
       <div className="w-full max-w-3xl space-y-6">
         {events.map((e) => (
-          <EventCard key={e.id} title={e.Title} description={e.description} imageUrl={e.imageUrl} />
+          <Link
+            key={e.id}
+            href={`/events/${e.id}`}
+            className="block cursor-pointer hover:shadow-lg transition-shadow rounded-lg"
+            aria-label={`Voir le détail de ${e.Title}`}
+          >
+            <EventCard title={e.Title} description={e.description} imageUrl={e.imageUrl} />
+          </Link>
         ))}
       </div>
     </div>
