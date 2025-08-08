@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import postStore from '../../store';
-import { Provider } from 'react-redux';
+
 import EventsList from '@/composents/event';
 
 const filters = ['Mes événements', 'Abonnements', 'Événements', 'Participé'] as const;
@@ -15,7 +14,7 @@ export default function EventsPage() {
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   return (
-    <Provider store={postStore}>
+   
    
 
     <div className="min-h-screen px-4 md:px-8 py-6">
@@ -85,6 +84,6 @@ export default function EventsPage() {
         <EventsList />
       </div>
     </div>
-        </Provider>
+    
   );
 }
