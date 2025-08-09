@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import EventsList from '@/composents/event';
+import { useRouter } from 'next/navigation'; // ajout navigation
 
 const filters = ['Mes événements', 'Abonnements', 'Événements', 'Participé'] as const;
 type Filter = typeof filters[number];
@@ -12,18 +13,16 @@ export default function EventsPage() {
   const [activeFilter, setActiveFilter] = useState<Filter>('Mes événements');
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const router = useRouter(); // init router
 
   return (
-   
-   
-
     <div className="min-h-screen px-4 md:px-8 py-6">
       {/* Top bar with right-aligned button */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl md:text-2xl font-semibold text-black">Événements</h1>
         <button
           className="px-4 py-2 rounded-lg bg-[#FFBFBF] text-black font-medium hover:opacity-90 transition"
-          onClick={() => {}}
+          onClick={() => router.push('/events/create_event')} // navigate
         >
           créer un évenement
         </button>
@@ -84,6 +83,5 @@ export default function EventsPage() {
         <EventsList />
       </div>
     </div>
-    
   );
 }
