@@ -142,7 +142,7 @@ export default function AdminGroupesPage() {
           </h1>
           <div className="flex gap-3">
             <a
-              href="/admin"
+              href="/admin/annnonces"
               className="px-4 py-2 rounded-lg bg-white text-black border border-gray-300 text-sm font-medium hover:bg-gray-50 transition"
             >
               Annonces
