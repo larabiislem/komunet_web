@@ -4,12 +4,12 @@ import { useState, useEffect, useRef } from "react";
 
 export default function ModerateurDashboard() {
   const [filterOpen, setFilterOpen] = useState(false);
-  const filterRef = useRef(null);
+  const filterRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (filterRef.current && !filterRef.current.contains(e.target)) {
-        setFilterOpen(false);
+    function handleClickOutside(e: MouseEvent) {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+      setFilterOpen(false);
       }
     }
     window.addEventListener("click", handleClickOutside);
@@ -60,7 +60,17 @@ export default function ModerateurDashboard() {
     }
   ];
 
-  const getStatusColor = (statut) => {
+  interface Groupe {
+    id: number;
+    titre: string;
+    createur: string;
+    statut: "En attente" | "Validé" | "Rejeté" | "Fermé";
+    description: string;
+  }
+
+  type Statut = Groupe["statut"];
+
+  const getStatusColor = (statut: Statut): string => {
     switch (statut) {
       case "En attente":
         return "text-yellow-800 bg-yellow-100";
@@ -115,7 +125,7 @@ export default function ModerateurDashboard() {
                   </div>
                   <span
                     className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusColor(
-                      groupe.statut
+                      groupe.statut as Statut
                     )}`}
                   >
                     {groupe.statut}
