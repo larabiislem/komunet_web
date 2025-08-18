@@ -33,7 +33,7 @@ function EventCard({
   };
 
   return (
-    <div className="w-full max-w-3xl bg-white rounded-lg shadow p-6 flex items-center justify-between gap-6">
+    <div className="w-full max-w-3xl bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl ring-1 ring-black/5 p-6 md:p-7 flex items-center justify-between gap-6 transition-shadow duration-300 hover:shadow-2xl hover:ring-black/10">
       <div className="flex-1">
         <h3 className="text-lg font-semibold text-black">{title}</h3>
         <p className="mt-2 text-sm text-gray-700">{description}</p>
@@ -131,7 +131,7 @@ export default function EventsList({ endpoint, pageSize = 8, enableSearch = true
     <div className="flex flex-col items-center w-full">
       <div className="w-full max-w-3xl space-y-6">
         {enableSearch && (
-          <div className="bg-white rounded-lg shadow p-4">
+          <div className="bg-white/95 rounded-2xl shadow-lg ring-1 ring-black/5 p-4">
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -142,7 +142,7 @@ export default function EventsList({ endpoint, pageSize = 8, enableSearch = true
         )}
 
         {err && (
-          <div className="rounded-lg border border-red-200 bg-red-50 text-red-700 p-3 text-sm">
+          <div className="rounded-2xl border border-red-200 bg-red-50/95 shadow-md ring-1 ring-red-200/60 text-red-700 p-3 text-sm">
             {err}
           </div>
         )}
@@ -150,7 +150,7 @@ export default function EventsList({ endpoint, pageSize = 8, enableSearch = true
         {loading && list.length === 0 && (
           <>
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="w-full max-w-3xl bg-white rounded-lg shadow p-6 flex items-center justify-between gap-6 animate-pulse">
+              <div key={i} className="w-full max-w-3xl bg-white/95 rounded-2xl shadow-lg ring-1 ring-black/5 p-6 flex items-center justify-between gap-6 animate-pulse">
                 <div className="flex-1 space-y-3">
                   <div className="h-4 w-48 bg-gray-200 rounded" />
                   <div className="h-3 w-4/5 bg-gray-200 rounded" />
@@ -162,7 +162,7 @@ export default function EventsList({ endpoint, pageSize = 8, enableSearch = true
         )}
 
         {!loading && list.length === 0 && !err && (
-          <div className="bg-white rounded-lg border border-gray-100 p-6 text-center text-sm text-gray-600">
+          <div className="bg-white/95 rounded-2xl shadow-md ring-1 ring-black/5 p-6 text-center text-sm text-gray-600">
             Aucun événement pour le moment.
           </div>
         )}
@@ -171,7 +171,7 @@ export default function EventsList({ endpoint, pageSize = 8, enableSearch = true
           <Link
             key={e.id}
             href={`/events/${e.id}`}
-            className="block cursor-pointer hover:shadow-lg transition-shadow rounded-lg"
+            className="block cursor-pointer transition-shadow rounded-2xl hover:shadow-2xl hover:ring-1 hover:ring-black/10"
             aria-label={`Voir le détail de ${e.Title}`}
           >
             <EventCard title={e.Title} description={e.description} imageUrl={e.imageUrl} />
@@ -187,7 +187,7 @@ export default function EventsList({ endpoint, pageSize = 8, enableSearch = true
                 fetchPage(next);
               }}
               disabled={loading}
-              className="px-4 py-2 rounded-md bg-gray-900 text-white text-sm hover:bg-black transition disabled:opacity-50"
+              className="px-4 py-2 rounded-md bg-gray-900 text-white text-sm hover:bg-black transition disabled:opacity-50 shadow-lg hover:shadow-2xl"
             >
               {loading ? "Chargement..." : "Charger plus"}
             </button>

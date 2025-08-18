@@ -10,6 +10,7 @@ import {
   Image as ImageIcon,
   Bookmark,
   Send,
+  X, // added
 } from "lucide-react";
 
 type RegularPost = {
@@ -230,7 +231,7 @@ export default function RegularPosts({
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-lg shadow p-6 animate-pulse space-y-4"
+              className="bg-white rounded-2xl shadow-lg ring-1 ring-black/5 p-6 animate-pulse space-y-4"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gray-200" />
@@ -256,7 +257,7 @@ export default function RegularPosts({
           return (
             <div
               key={post.id}
-              className="bg-white rounded-lg shadow p-6 flex flex-col gap-3"
+              className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl ring-1 ring-black/5 p-6 md:p-7 flex flex-col gap-3 transition-shadow duration-300 hover:shadow-2xl hover:ring-black/10"
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -358,93 +359,102 @@ export default function RegularPosts({
                   <span>{post.viewCount}</span>
                 </div>
               </div>
-            
 
-       {/* Section Commentaires */}
-        {open && (
-          <div className="mt-2 border-t border-gray-100 pt-3 space-y-3">
-            {/* Champ d'ajout */}
-            <div className="flex items-end gap-2">
-              <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
-                {/* Current user avatar (fallback) */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-              
-             
-                      {/* avatar du current user si dispo (placeholder ici) */}
-                      <UserCircle className="w-8 h-8 text-gray-400" />
-                 
-              </div>
-              <div className="flex-1">
-                <div className="relative">
-                  <textarea
-                    rows={1}
-                    value={draft}
-                    onChange={(e) => setCommentDrafts((s) => ({ ...s, [post.id]: e.target.value }))}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        submitComment(post.id);
-                      }
-                    }}
-                    placeholder="Écrire un commentaire…"
-                    className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 placeholder-black text-black"
+              {/* Modal commentaires */}
+              {open && (
+                <div className="fixed inset-0 z-50" aria-modal="true" role="dialog">
+                  <div
+                    className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                    onClick={() => setCommentsOpen((s) => ({ ...s, [post.id]: false }))}
                   />
-                  <button
-                    onClick={() => submitComment(post.id)}
-                    className="absolute right-2 bottom-2 p-1.5 rounded-md bg-gray-900 text-white hover:bg-black transition"
-                    aria-label="Envoyer"
-                  >
-                    <Send className="w-4 h-4" />
-                  </button>
-                </div>
-                <div className="text-[10px] text-gray-500 mt-1">
-                  Entrée pour envoyer • Maj+Entrée pour nouvelle ligne
-                </div>
-              </div>
-            </div>
+                  <div className="relative z-10 mx-auto mt-12 md:mt-20 w-full max-w-2xl px-4">
+                    <div className="relative bg-white rounded-2xl shadow-2xl ring-1 ring-black/5 p-4 md:p-6">
+                      <button
+                        onClick={() => setCommentsOpen((s) => ({ ...s, [post.id]: false }))}
+                        className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-100"
+                        aria-label="Fermer"
+                      >
+                        <X className="w-5 h-5 text-gray-700" />
+                      </button>
 
-                  {/* Liste des commentaires */}
-                  {cError && (
-                    <div className="text-sm text-red-600">{cError}</div>
-                  )}
-                  {cLoading && postComments.length === 0 && (
-                    <div className="space-y-2">
-                      {[...Array(2)].map((_, i) => (
-                        <div key={i} className="flex items-start gap-2 animate-pulse">
-                          <div className="w-8 h-8 rounded-full bg-gray-200" />
-                          <div className="flex-1 space-y-2">
-                            <div className="h-3 w-40 bg-gray-200 rounded" />
-                            <div className="h-3 w-3/4 bg-gray-200 rounded" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <div className="space-y-3">
-                    {postComments.map((c) => (
-                      <div key={c.id} className="flex items-start gap-2">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">Commentaires</h3>
+
+                      {/* Champ d'ajout */}
+                      <div className="flex items-end gap-2 mb-3">
                         <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
-                          {c.avatarUrl ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={c.avatarUrl} alt={c.author} className="w-full h-full object-cover" />
-                          ) : (
-                            <UserCircle className="w-8 h-8 text-gray-400" />
-                          )}
+                          <UserCircle className="w-8 h-8 text-gray-400" />
                         </div>
-                        <div className="flex-1 bg-gray-50 border border-gray-100 rounded-lg px-3 py-2">
-                          <div className="text-xs text-gray-600">
-                            <span className="font-medium text-gray-800">{c.author}</span>
-                            <span className="ml-2 text-gray-400">{timeAgo(c.createdAt)}</span>
+                        <div className="flex-1">
+                          <div className="relative">
+                            <textarea
+                              rows={1}
+                              value={draft}
+                              onChange={(e) =>
+                                setCommentDrafts((s) => ({ ...s, [post.id]: e.target.value }))
+                              }
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" && !e.shiftKey) {
+                                  e.preventDefault();
+                                  submitComment(post.id);
+                                }
+                              }}
+                              placeholder="Écrire un commentaire…"
+                              className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 placeholder-black text-black"
+                            />
+                            <button
+                              onClick={() => submitComment(post.id)}
+                              className="absolute right-2 bottom-2 p-1.5 rounded-md bg-gray-900 text-white hover:bg-black transition"
+                              aria-label="Envoyer"
+                            >
+                              <Send className="w-4 h-4" />
+                            </button>
                           </div>
-                          <div className="text-sm text-gray-800 whitespace-pre-wrap">
-                            {c.content}
+                          <div className="text-[10px] text-gray-500 mt-1">
+                            Entrée pour envoyer • Maj+Entrée pour nouvelle ligne
                           </div>
                         </div>
                       </div>
-                    ))}
-                    {postComments.length === 0 && !cLoading && !cError && (
-                      <div className="text-xs text-gray-500">Aucun commentaire pour le moment.</div>
-                    )}
+
+                      {/* Liste des commentaires */}
+                      {cError && <div className="text-sm text-red-600 mb-2">{cError}</div>}
+                      {cLoading && postComments.length === 0 && (
+                        <div className="space-y-2 mb-2">
+                          {[...Array(2)].map((_, i) => (
+                            <div key={i} className="flex items-start gap-2 animate-pulse">
+                              <div className="w-8 h-8 rounded-full bg-gray-200" />
+                              <div className="flex-1 space-y-2">
+                                <div className="h-3 w-40 bg-gray-200 rounded" />
+                                <div className="h-3 w-3/4 bg-gray-200 rounded" />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="space-y-3 max-h-[55vh] overflow-y-auto pr-1">
+                        {postComments.map((c) => (
+                          <div key={c.id} className="flex items-start gap-2">
+                            <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                              {c.avatarUrl ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={c.avatarUrl} alt={c.author} className="w-full h-full object-cover" />
+                              ) : (
+                                <UserCircle className="w-8 h-8 text-gray-400" />
+                              )}
+                            </div>
+                            <div className="flex-1 bg-gray-50 border border-gray-100 rounded-lg px-3 py-2">
+                              <div className="text-xs text-gray-600">
+                                <span className="font-medium text-gray-800">{c.author}</span>
+                                <span className="ml-2 text-gray-400">{timeAgo(c.createdAt)}</span>
+                              </div>
+                              <div className="text-sm text-gray-800 whitespace-pre-wrap">{c.content}</div>
+                            </div>
+                          </div>
+                        ))}
+                        {postComments.length === 0 && !cLoading && !cError && (
+                          <div className="text-xs text-gray-500">Aucun commentaire pour le moment.</div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

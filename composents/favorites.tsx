@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Trash2, UserCircle, Heart, MessageCircle, Share2, Eye, Image as ImageIcon } from "lucide-react";
+import { Trash2, Heart, MessageCircle, Share2, Eye, ImageIcon } from "lucide-react";
 import { getFavorites } from "@/app/favorites/favortisslisers";
 
 interface FavoritePost {
@@ -12,7 +12,13 @@ interface FavoritePost {
   commentsCount?: number;
   sharesCount?: number;
   viewCount?: number;
+  mediaUrl?: string;
+  authorAvatarUrl?: string;
 }
+
+// Fallbacks
+const DEFAULT_AVATAR = "/images/default-avatar.png";
+const DEFAULT_MEDIA = "/images/default-media.jpg";
 
 function timeAgo(dateString: string): string {
   const now = new Date();
@@ -25,6 +31,13 @@ function timeAgo(dateString: string): string {
   }
   return `il y a ${diffHours} heure${diffHours > 1 ? "s" : ""}`;
 }
+
+// Eviter la boucle onError
+const onErrorOnce = (img: HTMLImageElement, fallback: string) => {
+  if ((img as any).dataset?.fallbackApplied === "1") return;
+  (img as any).dataset.fallbackApplied = "1";
+  img.src = fallback;
+};
 
 export default function FavoritesList() {
   const dispatch = useDispatch();
@@ -41,10 +54,18 @@ export default function FavoritesList() {
         {favorites && favorites.map((fav: FavoritePost) => (
           <div
             key={fav.id}
-            className="bg-white rounded-lg shadow p-6 flex flex-col gap-3"
+            className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl ring-1 ring-black/5 p-6 md:p-7 flex flex-col gap-3 transition-shadow duration-300 hover:shadow-2xl hover:ring-black/10"
           >
             <div className="flex items-center gap-3">
-              <UserCircle className="w-10 h-10 text-gray-400" />
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={fav.authorAvatarUrl || DEFAULT_AVATAR}
+                  alt={fav.author}
+                  className="w-full h-full object-cover"
+                  onError={(e) => onErrorOnce(e.currentTarget, DEFAULT_AVATAR)}
+                />
+              </div>
               <div>
                 <span className="font-semibold text-gray-900">{fav.author}</span>
                 <div className="text-xs text-gray-500">{timeAgo(fav.creationDate)}</div>
@@ -56,13 +77,27 @@ export default function FavoritesList() {
                 <Trash2 className="w-5 h-5 text-red-500" />
               </button>
             </div>
-            {/* Icône image de post, plus grande */}
-               <div className="text-gray-800 text-base">{fav.content}</div>
-            <div className="flex items-center justify-center mb-4">
-              <ImageIcon className="w-72 h-56 text-gray-200" />
-            </div>
-         
-            <div className="flex items-center gap-6 mt-2 text-gray-500">
+
+            <div className="text-gray-800 text-base">{fav.content}</div>
+
+            {/* Image du post (icône si pas d'image) */}
+            {fav.mediaUrl ? (
+              <div className="rounded-lg overflow-hidden border border-gray-100">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={fav.mediaUrl}
+                  alt="media"
+                  className="w-full max-h-96 object-cover"
+                  onError={(e) => onErrorOnce(e.currentTarget, DEFAULT_MEDIA)}
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center rounded-lg border border-dashed border-gray-200 bg-gray-50 py-12">
+                <ImageIcon className="w-16 h-16 text-gray-300" />
+              </div>
+            )}
+
+            <div className="flex items-center gap-6 mt-2 text-gray-600">
               <div className="flex items-center gap-1">
                 <Heart className="w-5 h-5" />
                 <span>{fav.likesCount ?? 0}</span>
