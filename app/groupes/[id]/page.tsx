@@ -1,10 +1,77 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export default function GroupDetail() {
+  const [activeTab, setActiveTab] = useState("posts");
+
+  // Mock data
+  const posts = [
+    {
+      id: 1,
+      title: "Nouveautés en IA 2025",
+      content: "Discussion autour des dernières avancées en Intelligence Artificielle...",
+    },
+    {
+      id: 2,
+      title: "React vs Next.js",
+      content: "Quel framework utilisez-vous en production cette année ?",
+    },
+    {
+      id: 3,
+      title: "Nouveaux gadgets",
+      content: "Partagez vos impressions sur les derniers casques VR.",
+    },
+  ];
+
+  const events = [
+  {
+    id: 1,
+    name: "Conférence Tech 2025",
+    date: "20 Septembre 2025",
+    description: "Rencontre avec des experts en cloud et IA.",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 2,
+    name: "Hackathon Web3",
+    date: "5 Octobre 2025",
+    description: "Un week-end entier pour créer des projets Web3 innovants.",
+    image: "https://images.unsplash.com/photo-1638029202288-451a89e0d55f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 3,
+    name: "Meetup développeurs",
+    date: "15 Novembre 2025",
+    description: "Un moment d'échange autour du développement web moderne.",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+  },
+];
+
+
+  const members = [
+    {
+      id: 1,
+      name: "Yasmine K.",
+      role: "Admin",
+      img: "https://randomuser.me/api/portraits/women/50.jpg",
+    },
+    {
+      id: 2,
+      name: "Amine B.",
+      role: "Modérateur",
+      img: "https://randomuser.me/api/portraits/men/46.jpg",
+    },
+    {
+      id: 3,
+      name: "Lina T.",
+      role: "Membre actif",
+      img: "https://randomuser.me/api/portraits/women/65.jpg",
+    },
+  ];
+
   return (
     <div
       className="
@@ -15,7 +82,7 @@ export default function GroupDetail() {
     >
       {/* Back */}
       <Link href="/groups" className="flex items-center gap-2 text-black mb-6">
-        <ArrowLeft size={18} /> Retour
+        <ArrowLeft size={18} /> <span className="text-black">Retour</span>
       </Link>
 
       {/* Group Header */}
@@ -27,19 +94,106 @@ export default function GroupDetail() {
         />
         <h1 className="text-lg font-semibold text-black">Tech Enthusiasts</h1>
         <p className="text-sm text-black">
-          12,345 members · Created on Jan 15, 2022
+          12,345 membres · Créé le 15 Janvier 2022
         </p>
       </div>
 
       {/* Tabs */}
       <div className="flex justify-center gap-6 border-b mb-6 text-sm font-medium">
-        <button className="text-black border-b-2 border-black pb-2">
-          Posts
-        </button>
-        <button className="text-black hover:text-blue-600">Evénements</button>
-        <button className="text-black hover:text-blue-600">Membres</button>
-        <button className="text-black hover:text-blue-600">À propos</button>
+        {["posts", "events", "members", "about"].map((tab) => (
+          <button
+            key={tab}
+            className={`pb-2 ${
+              activeTab === tab
+                ? "text-black border-b-2 border-black"
+                : "text-black hover:text-blue-600"
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab === "posts" && "Posts"}
+            {tab === "events" && "Événements"}
+            {tab === "members" && "Membres"}
+            {tab === "about" && "À propos"}
+          </button>
+        ))}
       </div>
+
+      {/* Dynamic Content */}
+      {activeTab === "posts" && (
+        <div className="mb-8 text-black">
+          <h2 className="text-sm font-semibold mb-4 text-black">Posts récents</h2>
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <div
+                key={post.id}
+                className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition"
+              >
+                <h3 className="font-semibold text-black">{post.title}</h3>
+                <p className="text-sm text-black">{post.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "events" && (
+  <div className="mb-8 text-black">
+    <h2 className="text-sm font-semibold mb-4 text-black">Événements à venir</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {events.map((event) => (
+        <div
+          key={event.id}
+          className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
+        >
+          {/* Event image */}
+          <img
+            src={event.image}
+            alt={event.name}
+            className="w-full h-32 object-cover"
+          />
+
+          {/* Event details */}
+          <div className="p-4">
+            <h3 className="font-semibold text-black mb-1">{event.name}</h3>
+            <p className="text-xs text-black mb-2">{event.date}</p>
+            <p className="text-sm text-black line-clamp-2">{event.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+
+      {activeTab === "members" && (
+  <div className="mb-8 text-black">
+    <h2 className="text-sm font-semibold mb-4 text-black">Membres</h2>
+    <div className="flex gap-3 flex-wrap">
+      {members.map((member) => (
+        <img
+          key={member.id}
+          src={member.img}
+          alt={member.name}
+          className="rounded-full w-12 h-12 object-cover border-2 border-white shadow-sm hover:scale-105 transition"
+        />
+      ))}
+    </div>
+  </div>
+)}
+
+
+      {activeTab === "about" && (
+        <div className="mb-8 text-black">
+          <h2 className="text-sm font-semibold mb-2 text-black">À propos</h2>
+          <p className="text-sm text-black leading-relaxed">
+            Tech Enthusiasts est une communauté dédiée aux passionnés de
+            technologie. Ici, nous partageons des actualités, organisons des
+            événements et échangeons autour des tendances du développement,
+            gadgets et innovations numériques. Rejoignez-nous pour apprendre,
+            collaborer et innover ensemble !
+          </p>
+        </div>
+      )}
 
       {/* Moderators */}
       <div className="mb-8">
@@ -73,7 +227,7 @@ export default function GroupDetail() {
         {[
           {
             name: "AI Innovators",
-            img: "https://images.unsplash.com/photo-1581094794329-c8112a89e2be",
+            img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1932&auto=format&fit=crop",
           },
           {
             name: "Frontend Masters",
