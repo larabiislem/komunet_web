@@ -4,7 +4,7 @@ import "./globals.css";
 import Sidebar from "@/composents/sidebar";
 import SearchBar from "@/composents/searchbar";
 import logo from "../assets/logo.png";
-import ProviderWrapper from "../composents/ProviderWrapper"; // adjust path as needed
+import ProviderWrapper from "../composents/ProviderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,23 +27,48 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{ backgroundColor: "#FEF7F2" }}
       >
         <ProviderWrapper>
-          <div className="sticky top-0 z-40 bg-[#FEF7F2]">
-            <div className="absolute top-0 right-0 ">
-              <img src={logo.src} alt="Logo" className="h-10 w-auto" />
+          {/* Header sticky, responsive */}
+          <header className="sticky top-0 z-40 bg-[#FEF7F2]/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur border-b border-black/5">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+              <div className="flex flex-col gap-3 md:flex-row md:items-center">
+                <div className="flex items-center justify-between">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={logo.src}
+                    alt="Logo"
+                    className="h-8 w-auto sm:h-10"
+                  />
+                </div>
+                <div className="md:ml-6 flex-1 min-w-0">
+                  <SearchBar />
+                </div>
+              </div>
             </div>
-            <div className="flex justify-center mt-8 ">
-              <SearchBar />
-            </div>
-          </div>
+          </header>
 
-          <Sidebar />
-          {children}
+          {/* Layout responsive: sidebar à gauche en ≥lg, empilé en mobile */}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+            <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-6">
+              {/* Sidebar desktop */}
+              <aside className="hidden lg:block">
+                <Sidebar />
+              </aside>
+
+              {/* Contenu */}
+              <main className="min-w-0">{children}</main>
+            </div>
+
+            {/* Sidebar mobile: sous le contenu */}
+            <aside className="mt-6 lg:hidden">
+              <Sidebar />
+            </aside>
+          </div>
         </ProviderWrapper>
       </body>
     </html>

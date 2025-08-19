@@ -34,17 +34,17 @@ export default function CreateEventPage() {
     'w-full bg-[#F5F2F2] text-black placeholder-gray-500 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#FFBFBF]';
 
   return (
-    <div className="min-h-screen px-4 md:px-8 py-10 md:py-14 flex items-start justify-center">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-14 flex items-start sm:items-center justify-center">
       <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="p-6 md:p-8">
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
+        <div className="p-4 sm:p-6 md:p-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-4 sm:mb-6">
             Créer un évènement
           </h1>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* Titre */}
             <div>
-              <label className="block text-sm font-medium text-gray-800 mb-1">
+              <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                 Titre de l’évènement
               </label>
               <input
@@ -59,7 +59,7 @@ export default function CreateEventPage() {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-800 mb-1">
+              <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                 Description
               </label>
               <textarea
@@ -72,9 +72,9 @@ export default function CreateEventPage() {
             </div>
 
             {/* Lieu / Lien */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">
+                <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                   Lieu (optionnel)
                 </label>
                 <input
@@ -86,7 +86,7 @@ export default function CreateEventPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">
+                <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                   Lien (optionnel)
                 </label>
                 <input
@@ -101,7 +101,7 @@ export default function CreateEventPage() {
 
             {/* Image de l’évènement */}
             <div>
-              <label className="block text-sm font-medium text-gray-800 mb-1">
+              <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                 Image de l’évènement
               </label>
               <input
@@ -115,16 +115,17 @@ export default function CreateEventPage() {
                 className="block w-full bg-[#F5F2F2] text-black border border-gray-200 rounded-lg px-3 py-2 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-white file:text-black focus:outline-none focus:ring-2 focus:ring-[#FFBFBF]"
               />
               {imagePreview && (
-                <div className="mt-3 w-full h-40 rounded-lg overflow-hidden border border-gray-200">
+                <div className="mt-3 w-full h-40 sm:h-48 md:h-56 rounded-lg overflow-hidden border border-gray-200">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={imagePreview} alt="Aperçu de l’évènement" className="w-full h-full object-cover" />
                 </div>
               )}
             </div>
 
             {/* Date / Heure */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">
+                <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                   Date
                 </label>
                 <input
@@ -136,7 +137,7 @@ export default function CreateEventPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">
+                <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                   Heure
                 </label>
                 <input
@@ -150,9 +151,9 @@ export default function CreateEventPage() {
             </div>
 
             {/* Durée / Capacité */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">
+                <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                   Durée
                 </label>
                 <input
@@ -164,7 +165,7 @@ export default function CreateEventPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-800 mb-1">
+                <label className="block text-sm sm:text-[15px] font-medium text-gray-800 mb-1.5">
                   Capacité
                 </label>
                 <input
@@ -179,10 +180,10 @@ export default function CreateEventPage() {
             </div>
 
             {/* Submit */}
-            <div className="pt-2 flex justify-end">
+            <div className="pt-2 flex flex-col sm:flex-row sm:justify-end">
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-lg bg-[#FFBFBF] text-black font-semibold hover:bg-[#ff9f9f] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFBFBF]/60"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-[#FFBFBF] text-black font-semibold hover:bg-[#ff9f9f] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFBFBF]/60"
               >
                 Soumettre pour modération
               </button>
