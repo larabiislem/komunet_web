@@ -1,36 +1,74 @@
 'use client'
 
 import * as React from "react"
-// ...existing code...
-import { Home, Bell, Users, Calendar, Heart, User, Briefcase, Tag, FileCheck } from 'lucide-react'
+import { Home, Bell, Users, Calendar, Heart, User, Briefcase,ClipboardList } from 'lucide-react'
 import Link from "next/link"
 
-// Remplace "Services/Offres" par 3 entrées séparées
 const menuItems = [
-  { title: "Home", url: "/home", icon: Home },
-  { title: "Notifications", url: "/notifications", icon: Bell },
-  { title: "Groupes", url: "/groupes", icon: Users },
-  { title: "Événements", url: "/events", icon: Calendar },
-  { title: "Mes Favoris", url: "/favorites", icon: Heart },
-  { title: "Profile", url: "/profile", icon: User },
-
-  // Nouvelles entrées
-  { title: "Voir mes services", url: "/mes-services", icon: Briefcase },
-  { title: "Voir mes offres", url: "/mes-offres", icon: Tag },
-  { title: "Voir mes candidatures", url: "/mes-candidatures", icon: FileCheck },
+  {
+    title: "Home",
+    url: "/home",
+    icon: Home,
+  },
+  {
+    title: "Notifications",
+    url: "/notifications",
+    icon: Bell,
+  },
+  {
+    title: "Groupes",
+    url: "/groupes",
+    icon: Users,
+  },
+  {
+    title: "Événements",
+    url: "/events",
+    icon: Calendar,
+  },
+  {
+    title: "Mes Favoris",
+    url: "/favorites",
+    icon: Heart,
+  },
+  {
+    title: "Profile",
+    url: "/profile",
+    icon: User,
+  },
+  {
+    title: "Services/Offres",
+    url: "/services_offres",
+    icon: Briefcase,
+  },
+  {
+    title: "Voir mes candidatures",
+    url: "/candidatures",
+    icon: ClipboardList,
+  },
+  {
+    title: "voir mes offres/services",
+    url: "/offres-services",
+    icon: Briefcase,
+  },
 ]
 
-// ...existing code...
+interface SidebarProps {
+  isOpen?: boolean
+  onToggle?: () => void
+}
+
 export default function Sidebar() {
   const [activeItem, setActiveItem] = React.useState("Home")
 
   return (
     <>
-      {/* ...existing code... */}
+
       <div className={`
        fixed top-20 left-5 h-full w-70 bg-white border-r border-gray-200 shadow-lg z-50 rounded-[15px]
           hidden md:block
+      
       `}>
+
         <div className="flex flex-col h-full">
           <div className="flex-1 py-4">
             <nav className="px-2">
@@ -39,24 +77,24 @@ export default function Sidebar() {
                   const Icon = item.icon
                   const isActive = activeItem === item.title
                   return (
-                    <li key={item.title}>
-                      <Link
-                        href={item.url}
-                        onClick={() => setActiveItem(item.title)}
-                        className={`
-                          flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200
-                          ${isActive 
-                            ? 'bg-gray-200 text-black ' 
-                            : 'text-black hover:bg-gray-50 hover:text-black'
-                          }
-                        `}
-                      >
-                        <Icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-gray-600'}`}
-                          fill={isActive ? 'black' : 'none'}
-                        />
-                        <span>{item.title}</span>
-                      </Link>
-                    </li>
+                   <li key={item.title}>
+                  <Link
+                    href={item.url}
+                    onClick={() => setActiveItem(item.title)}
+                    className={`
+                      flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200
+                      ${isActive 
+                        ? 'bg-gray-200 text-black ' 
+                        : 'text-black hover:bg-gray-50 hover:text-black'
+                      }
+                    `}
+                  >
+                    <Icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-gray-600'}`}
+                      fill={isActive ? 'black' : 'none'}
+                    />
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
                   )
                 })}
               </ul>
