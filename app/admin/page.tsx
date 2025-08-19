@@ -477,6 +477,9 @@ export default function DashboardPage() {
               />
             </div>
             
+
+
+            
             <div className="flex items-center justify-between">
               <label className="block text-sm font-medium text-gray-700">Statut actif</label>
               <Switch
@@ -484,6 +487,8 @@ export default function DashboardPage() {
                 onChange={(checked) => handleStatusChange(selectedUser.id, checked)}
               />
             </div>
+
+            
           </div>
         )}
       </Modal>
